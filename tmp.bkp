@@ -1,0 +1,94 @@
+(function(o){
+ o.now=o.now||o.webkitNow||o.msNow||o.oNow||o.mozNow||function(){return new Date().getTime()};
+})(window.performance||{});
+//‹
+(function(o,p){
+ o[p]=o[p]||function(i){return Array(i>=0?parseInt(i,10)+1:-1).join(this)};
+})(String.prototype,'repeat');
+//‹
+(function(o){
+ if(!o.init){
+	Object.defineProperty(o.timeStamp,'now',{get:function(){
+		var p=window.performance,t=new Date(),f=function(n,k){k=k||1;n=t['get'+n]();return('0'.repeat(k)+n).slice(-k-1)},j=p.oldP||0,l=p.oldS||0,i=p.now(),T=[f('Hours'),f('Minutes'),f('Seconds'),f('Milliseconds',2)];
+		p.oldP=i;j=i-j;t=T.join('');p.oldS=t;p='|\u0394';
+		return T.join(':')+p+(l?t-l:0)+'\t\u2192'+i+p+j}
+	 });
+	 o.style={
+		text:{
+		 note:'font:500 1em/1em courier;color:#555',
+		 title:'font:700 1.1em/1em sans-serif;color:#000',
+		 data:'font:500 1em/1em courier;color:#576394;margin-left:.8em'
+		}
+	 };
+	 o.test={
+		start:function(x){var s=o.style.text;o.time(x);o.group(['','test-id:',x].join('%c'),s.note,s.title)},
+		end:function(x){o.groupEnd();o.timeEnd(x)},
+		cases:[
+		 void(0),null,
+		 '',' ','   ','\t','abc',new String(''),new String('obj'),
+		 false,0,true,1,new Boolean(),new Boolean(1),
+		 Array,[],[1,2,3],new Array('obj'),
+		 Object,{},{a:1,b:2,c:3},
+		 Object.create(null),
+		 Object.create(null,{}),
+		 Object.create(null,{color:{writable:true,value:'red'}}),
+		 Object.create({}),
+		 Object.create({},{color:{writable:false,value:'blue'}}),
+		 Object.create([]),
+		 Object.create([],{color:{value:'green'}})//,
+		]
+	 };
+	 //ֵ
+	o.init=true;
+ };
+})(console);
+//‹
+
+//‹-------------------------
+(function(id,m,f){
+ console.test.start(id);
+	var slot=function(){var m=[];m.bool=[];return m};
+	for(var g={veri:slot(),falsi:slot()},fn,i=0,fl=f.length;i<fl;i++){
+	 fn=f[i];
+	 console.group('%c'+console.timeStamp.now,console.style.text.data);
+	 console.count('test');
+
+	 for(var dest,r,cs,j=0,ml=m.length;j<ml;j++){
+		cs=m[j];
+		r=fn(cs);
+		dest=r?g.veri:g.falsi;
+		if(r===1||r===true||r===0||r===false){dest=dest.bool};
+		//dest.push(r)
+	 };
+
+	 console.dir(g);
+	//console.table(g);
+	 console.groupEnd();
+	};
+ console.test.end(id);
+})('tester',console.test.cases,[
+ function(o){return 1},
+ function(o){return 0},
+ function(o){return 3}
+]);
+
+
+
+/*
+
+//console.log();
+//console.log('['+ Date.now() +']');
+
+
+ //ֵ
+
+
+
+
+
+//‹›
+//console.log();
+//console.log("‹end›");
+//console.log();
+
+*/
