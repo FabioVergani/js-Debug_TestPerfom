@@ -30,6 +30,34 @@
 	 o.test={
 		start:function(x,m){o.time(x);var s=o.style.text,n=s.note;o.group(C+'test-id:'+C+x,n,s.title);o.group(C+'Cases:',n);m=m||o.test.cases;o.dir(m);o.groupEnd();return m},
 		end:function(x){o.groupEnd();o.timeEnd(x)},
+		run:function(id,fm,cm){
+		 var s=o.style.text,n=s.note,p='length';
+		 cm=o.test.start(id,cm);
+		 for(var fn,i=0,fl=fm[p],out=[];i<fl;i++){
+			fn=fm[i];
+			o.group(C+o.timeStamp.now,s.data);
+			o.count('test');
+			o.group(C+'\u0192:'+C+(fn.name||'anonymous'),s,s.id);
+			o.log(C+fn,s.code);
+			o.groupEnd();
+			for(var cs in cm){
+				var cg=cm[cs];
+				for(var r,L,e,j=0,cl=cg[p];j<cl;j++){
+				 o.timeStamp(cs+j);
+				 e=cg[j];
+				 r=fn(e);
+				 L={value:e&&e.toString?String(e):e,len:(e&&e[p]?e[p]:''),result:r,veri:'',falsi:'',veriBooleani:'',falsiBooleani:''}
+				 L[(r?'veri':'falsi')+(r===true||r===false?'Booleani':'')]='\u2573';
+				 out[cs+S+j]=L
+				};
+			};
+			o.groupCollapsed(C+'Table:'+(i+1),s);
+			o.table(out);
+			o.groupEnd();
+			o.groupEnd();
+		 };
+		o.test.end(id);
+		},
 		cases:F(null)
 	 };
 	 $=o.test.cases;
@@ -41,70 +69,29 @@
 	 $.Boolean=[new Boolean(),false,true,0,1];
 	 $.Function=[function pippo(){var a=1},function(){}];
 	 $.Native=[String,Array,Boolean,Object,Function,Math];
-	 //ֵ
+
 	o.init=true;
  };
 })(console,'sans-serif','courier');
 //‹
-
-//‹-------------------------
-(function(id,fm,cm){
- var C='%c',o=console,s=o.style.text;
-var S='\u0020';
-
-cm=o.test.start(id,cm);
+//ֵ
 
 
 
 
-	for(var fn,i=0,fl=fm.length,out=[];i<fl;i++){
-	 fn=fm[i];
-	 o.group(C+o.timeStamp.now,s.data);
-		o.count('test');
-		o.group(C+'\u0192:'+C+(fn.name||'anonymous'),s.note,s.id);
-		 o.log(C+fn,s.code);
-		o.groupEnd();
-
-		for(var cs in cm){
-		 var cg=cm[cs];
-		 for(var r,L,e,j=0,cl=cg.length;j<cl;j++){
-			e=cg[j];
-
-			r=fn(e);
-			L={value:e&&e.toString?String(e):e,len:(e&&e.length?e.length:''),result:r,veri:'',falsi:'',veriBooleani:'',falsiBooleani:''}
-			L[(r?'veri':'falsi')+(r===true||r===false?'Booleani':'')]='\u2573';
-			out[cs+S+j]=L
 
 
-			//dest=33
-		 };
-		};
-	 o.groupCollapsed(C+'Table:'+(i+1),s.note);
-	 o.table(out);
-	 o.groupEnd();
-	 o.groupEnd();
-	};
- o.test.end(id);
-})('tester',[
+
+
+console.test.run('tester',[
  function(o){return 1},
  function(o){return false},
  function(o){return 0}
-]);
+])
 
 
-
-/*
-o.dir(JSON.stringify(out,null,'\t'));
-
-//console.log();
-//console.log('['+ Date.now() +']');
-
-o.timeStamp
- //ֵ
 
 //‹›
 //console.log();
 //console.log("‹end›");
 //console.log();
-
-*/
