@@ -7,9 +7,9 @@
 })(String.prototype,'repeat');
 
 //‹
-(function(o){
+(function(o,ss,cr){
  if(!o.init){
-	var S='\u0020',C='%c',F=function(n,j,f,c,b,x){var z='',i='inherit';return ['font:',n+'00',S,j,'em/normal',S,f,';color:',c?c:i,';background:',b?b:i,x||z].join(z)};
+	var $,S='\u0020',C='%c',z='',F=function(n,j,f,c,b,x){var i='inherit';return['font:',n+'00',S,j,'em/normal',S,f,';color:',c?c:i,';background:',b?b:i,x||z].join(z)};
 	Object.defineProperty(o.timeStamp,'now',{
 		get:function(){
 			var p=window.performance,t=new Date(),f=function(n,k){k=k||1;n=t['get'+n]();return('0'.repeat(k)+n).slice(-k-1)},j=p.T1||0,l=p.T2||0,i=p.now(),T=[f('Hours'),f('Minutes'),f('Seconds'),f('Milliseconds',2)];
@@ -19,43 +19,32 @@
 	 });
 	 o.style={
 		text:{
-		 code:F(5,1,'sans-serif','#444','#FCFFB2'),
-		 note:F(5,1,'courier','#555'),
-		 title:F(7,1.1,'sans-serif','#000'),
-		 id:F(6,.8,'verdana','#181A4C'),
-		 data:F(5,1,'courier','#576394',';margin-left:.8em'),
+		 code:F(5,1,ss,'#444','#FCFFB2'),
+		 title:F(7,1.1,ss,'#000'),
+		 note:F(5,1,cr,'#555'),
+		 data:F(5,1,cr,'#576394',';margin-left:.8em'),
+		 id:F(6,.8,'verdana','#181A4C')
 		}
 	 };
 	 F=Object.create;
 	 o.test={
-		start:function(x,m){o.time(x);
-s=o.style.text;
-m=m||o.test.cases;
-o.group(C+'test-id:'+x,s.note,s.title);
-		o.groupCollapsed(C+'Cases:',s.note);
-		//o.log(JSON.stringify(m,null,'\t'));
-		o.groupEnd();
-return m
-},
+		start:function(x,m){o.time(x);var s=o.style.text,n=s.note;o.group(C+'test-id:'+C+x,n,s.title);o.group(C+'Cases:',n);m=m||o.test.cases;o.dir(m);o.groupEnd();return m},
 		end:function(x){o.groupEnd();o.timeEnd(x)},
 		cases:F(null)
 	 };
-	 var $=o.test.cases;
+	 $=o.test.cases;
 	 $.Nothing=[void(0),null];
-	 $.StringBlank=[new String(),S,S.repeat(2),S.repeat(3),' \t','\t','\n\r','\u2009','\u200D'];
-	 $.StringFilled=[new String('txt'),'0','1','a','ab','abc','abc\u200Dd'];
+	 $.Object=[{},{a:1,b:2,c:3},{a:1,b:{ba:21,bb:22,bc:23},c:3},F(null),F(null,{}),F(null,{color:{writable:true,value:'red'}}),F({}),F({},{color:{writable:false,value:'blue'}}),F([]),F([],{color:{value:'green'}})];
+	 $.Array=[new Array(),new Array('obj1D'),[],[1,2,3],[[[]]],[1,[21,[221,222,223],23],3],{'a':1,'b':2,'c':3},F([],{person:{value:'FabioVergani'}})];
+	 F='\t',ss='\u200D',cr='abc';
+	 $.StringBlank=[new String(),S,S+S,S+S+S,S+F,F,'\n\r','\u2009',ss,new String('txt'),'0','1','a','ab',cr,cr+ss+'d'];
 	 $.Boolean=[new Boolean(),false,true,0,1];
-	 $.Array=[new Array(),new Array('obj1D'),[],[1,2,3]];
-	 $.ArrayMD=[[[[]]],[1,[21,[221,222,223],23],3]];
-	 $.ArrayAssociative=[{'a':1,'b':2,'c':3},F([],{person:{value:'FabioVergani'}})];
-	 $.Object=[{},{a:1,b:2,c:3},{a:1,b:{ba:21,bb:22,bc:23},c:3}];
-	 $.ObjectCreated=[F(null),F(null,{}),F(null,{color:{writable:true,value:'red'}}),F({}),F({},{color:{writable:false,value:'blue'}}),F([]),F([],{color:{value:'green'}})];
 	 $.Function=[function pippo(){var a=1},function(){}];
 	 $.Native=[String,Array,Boolean,Object,Function,Math];
 	 //ֵ
 	o.init=true;
  };
-})(console);
+})(console,'sans-serif','courier');
 //‹
 
 //‹-------------------------
@@ -82,7 +71,7 @@ cm=o.test.start(id,cm);
 			e=cg[j];
 
 			r=fn(e);
-			L={value:e&&e.toString?String(e):e,result:r,veri:'',falsi:'',veriBooleani:'',falsiBooleani:''}
+			L={value:e&&e.toString?String(e):e,len:(e&&e.length?e.length:''),result:r,veri:'',falsi:'',veriBooleani:'',falsiBooleani:''}
 			L[(r?'veri':'falsi')+(r===true||r===false?'Booleani':'')]='\u2573';
 			out[cs+S+j]=L
 
@@ -110,12 +99,8 @@ o.dir(JSON.stringify(out,null,'\t'));
 //console.log();
 //console.log('['+ Date.now() +']');
 
-
+o.timeStamp
  //ֵ
-
-
-
-
 
 //‹›
 //console.log();
