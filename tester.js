@@ -7,7 +7,7 @@
 })(String.prototype,'repeat');
 
 //‹
-(function(o,ss,cr){
+(function(o,ss,cr,g,h){
  if(!o.init){
 	var $,S='\u0020',C='%c',z='',F=function(n,j,f,c,b,x){var i='inherit';return['font:',n+'00',S,j,'em/normal',S,f,';color:',c?c:i,';background:',b?b:i,x||z].join(z)};
 	Object.defineProperty(o.timeStamp,'now',{
@@ -62,28 +62,23 @@
 	 };
 	 $=o.test.cases;
 	 $.Nothing=[void(0),null];
-	 $.Object=[{},{a:1,b:2,c:3},{a:1,b:{ba:21,bb:22,bc:23},c:3},F(null),F(null,{}),F(null,{color:{writable:true,value:'red'}}),F({}),F({},{color:{writable:false,value:'blue'}}),F([]),F([],{color:{value:'green'}})];
-	 $.Array=[new Array(),new Array('obj1D'),[],[1,2,3],[[[]]],[1,[21,[221,222,223],23],3],{'a':1,'b':2,'c':3},F([],{person:{value:'FabioVergani'}})];
+	 z={a:1,b:2,c:3};
+	 $.Object=[g,z,{a:1,b:z,c:3},F(null),F(null,g),F(null,{color:{writable:true,value:'red'}}),F(g),F(g,{color:{writable:false,value:'blue'}}),F(h),F(h,{color:{value:'green'}})];
+	 z=[1,2,3];
+	 $.Array=[new Array(),new Array('obj1D'),h,z,[[z]],[1,[21,z,23],3],{'a':1,'b':2,'c':3},F(h,{person:{value:'FabioVergani'}})];
 	 F='\t',ss='\u200D',cr='abc';
 	 $.StringBlank=[new String(),S,S+S,S+S+S,S+F,F,'\n\r','\u2009',ss,new String('txt'),'0','1','a','ab',cr,cr+ss+'d'];
 	 $.Boolean=[new Boolean(),false,true,0,1];
 	 $.Function=[function pippo(){var a=1},function(){}];
 	 $.Native=[String,Array,Boolean,Object,Function,Math];
-
+	//ֵ
 	o.init=true;
  };
-})(console,'sans-serif','courier');
+})(console,'sans-serif','courier',{},[]);
+
+
 //‹
-//ֵ
-
-
-
-
-
-
-
-
-console.test.run('tester',[
+console.test.run('test-id',[
  function(o){return 1},
  function(o){return false},
  function(o){return 0}
